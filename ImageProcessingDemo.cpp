@@ -3,7 +3,9 @@
 #include <vector>
 using namespace std;
 #include "Image_Class.h"
-
+//=========================================================================
+//                            MAIN MENU FUNCTION
+//=========================================================================
 int mainMenu()
 {
     // Done by Ebrahem Hassan
@@ -20,7 +22,9 @@ int mainMenu()
     cin >> choice;
     return choice;
 }
-
+//=========================================================================
+//                            LOAD IMAGE FUNCTION
+//=========================================================================
 Image loadANewImage()
 {
     // Done by Ebrahem hassan
@@ -43,7 +47,9 @@ Image loadANewImage()
     }
     return i;
 }
-
+//=========================================================================
+//                            GRAYSCALE FILTER
+//=========================================================================
 void grayscale(Image &image1)
 {
     // Done by Ebrahem Hassan
@@ -63,7 +69,9 @@ void grayscale(Image &image1)
         }
     }
 }
-
+//=========================================================================
+//                         BLACK AND WHITE FILTER
+//=========================================================================
 void blackandwhite(Image &image)
 {
     // Done by Mohamed Abdelmaqsoud
@@ -88,7 +96,9 @@ void blackandwhite(Image &image)
         }
     }
 }
-
+//=========================================================================
+//                            INVERT FILTER
+//=========================================================================
 void invert(Image &image)
 {
     // Done by youssef Ibrahim
@@ -103,7 +113,9 @@ void invert(Image &image)
         }
     }
 }
-
+//=========================================================================
+//                            RESIZE IMAGE
+//=========================================================================
 Image resizingImage(const Image &image1, int width, int height)
 {
     // Done by Ebrahem Hassan
@@ -121,7 +133,9 @@ Image resizingImage(const Image &image1, int width, int height)
     }
     return resized;
 }
-
+//=========================================================================
+//                            MERGE FILTER
+//=========================================================================
 Image mergeImage(Image image1)
 {
     // Done by Ebrahem Hassan
@@ -194,7 +208,40 @@ Image mergeImage(Image image1)
         }
     }
 }
+//=========================================================================
+//                            FLIP FILTER
+//=========================================================================
+void flip(Image &image)
+{ // Done by Mohamed Abdelmaqsoud
 
+    Image flipped(image.width, image.height);
+
+    char c;
+    cout << "Enter flip type (H for horizontal, V for vertical): ";
+    cin >> c;
+
+    for (int i = 0; i < image.width; ++i)
+    {
+        for (int j = 0; j < image.height; ++j)
+        {
+            for (int k = 0; k < 3; ++k)
+            {
+                if (c == 'H'||c == 'h')
+                {
+                    flipped(image.width - 1 - i, j, k) = image(i, j, k);
+                }
+                else if (c == 'V'||c == 'v')
+                {
+                    flipped(i, image.height - 1 - j, k) = image(i, j, k);
+                }
+            }
+        }
+    }
+    image = flipped;
+}
+//=========================================================================
+//                            SAVE IMAGE FUNCTION
+//=========================================================================
 void saveTheImage(Image &i)
 {
     // Done by Ebrahem Hassan
@@ -217,7 +264,9 @@ void saveTheImage(Image &i)
         saveTheImage(i);
     }
 }
-
+//=========================================================================
+//                            ROTATE FILTER
+//=========================================================================
 void rotate(Image &img)
 {
     // Done by youssef Ibrahim
@@ -280,6 +329,10 @@ void rotate(Image &img)
         img = newImage;
     }
 }
+
+//=========================================================================
+//                            MAIN PROGRAM
+//=========================================================================
 int main()
 {
     cout << "Welcome to the Our Image Processor!" << endl;
