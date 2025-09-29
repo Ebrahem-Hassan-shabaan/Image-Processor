@@ -1,9 +1,11 @@
 #include <complex>
 #include <iostream>
+#include <vector>
 using namespace std;
 #include "Image_Class.h"
 
 int mainMenu() {
+    //Done by Ibrahim hassan
     string menu[10] = {
         "Load New Image", "Grayscale Filter","Black and White filter","Invert Image", "Merge Images","Flip Image","Rotate Image",
         "Resize Image", "Save Image", "Exit"
@@ -19,6 +21,7 @@ int mainMenu() {
 }
 
 Image loadANewImage() {
+    //Done by Ibrahim hassan
     cout << "Please enter the filename of the image to load (e.g., photo.jpg): ";
     string filename;
     cin >> filename;
@@ -37,6 +40,7 @@ Image loadANewImage() {
 }
 
 void grayscale(Image &image1) {
+    //Done by Ibrahim hassan
     for (int i = 0; i < image1.width; i++) {
         for (int j = 0; j < image1.height; j++) {
             unsigned int avg = 0;
@@ -52,6 +56,7 @@ void grayscale(Image &image1) {
 }
 
 void invert (Image &image) {
+    // Done by youssef Ibrahim
     for (int i=0 ; i<image.width ; i++) {
         for (int j=0 ; j<image.height ; j++) {
             for (int k=0 ; k<image.channels ; k++) {
@@ -63,6 +68,7 @@ void invert (Image &image) {
 
 
 Image resizingImage(const Image &image1, int width, int height) {
+    //Done by Ibrahim hassan
     float xfaxtor = (float) image1.width / width, yfactor = (float) image1.height / height;
     Image resized(width, height);
     for (int i = 0; i < width; i++) {
@@ -76,6 +82,7 @@ Image resizingImage(const Image &image1, int width, int height) {
 }
 
 Image mergeImage(Image image1) {
+    //Done by Ebrahem hassan
     cout << "Loading the second image to merge...";
     Image image2 = loadANewImage();
     if (image1.width == image2.width && image1.height == image2.height) {
@@ -133,6 +140,7 @@ Image mergeImage(Image image1) {
 }
 
 void saveTheImage(Image &i) {
+    //Done by Ebrahem hassan
     cout << "Please enter the filename to save your image as (e.g., result.png): ";
     string s;
     cin >> s;
@@ -150,6 +158,54 @@ void saveTheImage(Image &i) {
     }
 }
 
+void rotate(Image &img){
+    // Done by youssef Ibrahim
+    vector <string>options = {"If you want to rotate 90 deg press 1", "If you want to rotate 180 deg press 2" , "If you want to rotate 270 deg press 3"};
+    for (int i = 0; i < options.size(); i++) {
+        cout << options[i] << endl;
+    }
+    int x;
+    cin >> x;
+    if (x==1){
+        int newWidth = img.height;
+        int newHeight = img.width;
+        Image newImage(newWidth, newHeight);
+        for (int i = 0; i < img.width; i++) {
+            for (int j = 0; j < img.height; j++) {
+                for (int k = 0; k < 3; k++) {
+                    newImage(img.height-1-j, i, k) = img(i, j, k);
+                }
+            }
+        }
+        img=newImage;
+    }
+    else if (x==2) {
+        int width = img.width;
+        int height = img.height;
+        Image newImage(width, height);
+        for (int i = 0; i < img.width; i++) {
+            for (int j = 0; j < img.height; j++) {
+                for (int k = 0; k < 3; k++) {
+                    newImage(width - 1 - i, height - 1 - j, k) = img(i, j, k);
+                }
+            }
+        }
+        img=newImage;
+    }
+    else if (x==3) {
+        int newWidth = img.height;
+        int newHeight = img.width;
+        Image newImage(newWidth, newHeight);
+        for (int i = 0; i < img.width; i++) {
+            for (int j = 0; j < img.height; j++) {
+                for (int k = 0; k < 3; k++) {
+                    newImage(j, img.width-1-i, k) = img(i, j, k);
+                }
+            }
+        }
+        img=newImage;
+    }
+}
 int main() {
     cout << "Welcome to the Our Image Processor!" << endl;
     Image image = loadANewImage();
@@ -178,7 +234,7 @@ int main() {
 
                 break;
             case 7://Rotate
-                
+                rotate(image);
                 break;
             case 8: {
                 // Resize
