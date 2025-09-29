@@ -5,7 +5,7 @@ using namespace std;
 #include "Image_Class.h"
 
 int mainMenu() {
-    //Done by Ibrahim hassan
+    //Done by Ebrahem Hassan
     string menu[10] = {
         "Load New Image", "Grayscale Filter","Black and White filter","Invert Image", "Merge Images","Flip Image","Rotate Image",
         "Resize Image", "Save Image", "Exit"
@@ -21,7 +21,7 @@ int mainMenu() {
 }
 
 Image loadANewImage() {
-    //Done by Ibrahim hassan
+    //Done by Ebrahem hassan
     cout << "Please enter the filename of the image to load (e.g., photo.jpg): ";
     string filename;
     cin >> filename;
@@ -40,7 +40,7 @@ Image loadANewImage() {
 }
 
 void grayscale(Image &image1) {
-    //Done by Ibrahim hassan
+    //Done by Ebrahem Hassan
     for (int i = 0; i < image1.width; i++) {
         for (int j = 0; j < image1.height; j++) {
             unsigned int avg = 0;
@@ -68,7 +68,7 @@ void invert (Image &image) {
 
 
 Image resizingImage(const Image &image1, int width, int height) {
-    //Done by Ibrahim hassan
+    //Done by Ebrahem Hassan
     float xfaxtor = (float) image1.width / width, yfactor = (float) image1.height / height;
     Image resized(width, height);
     for (int i = 0; i < width; i++) {
@@ -82,7 +82,7 @@ Image resizingImage(const Image &image1, int width, int height) {
 }
 
 Image mergeImage(Image image1) {
-    //Done by Ebrahem hassan
+    //Done by Ebrahem Hassan
     cout << "Loading the second image to merge...";
     Image image2 = loadANewImage();
     if (image1.width == image2.width && image1.height == image2.height) {
@@ -140,7 +140,7 @@ Image mergeImage(Image image1) {
 }
 
 void saveTheImage(Image &i) {
-    //Done by Ebrahem hassan
+    //Done by Ebrahem Hassan
     cout << "Please enter the filename to save your image as (e.g., result.png): ";
     string s;
     cin >> s;
