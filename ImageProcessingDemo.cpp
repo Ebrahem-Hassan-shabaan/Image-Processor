@@ -51,6 +51,17 @@ void grayscale(Image &image1) {
     }
 }
 
+void invert (Image &image) {
+    for (int i=0 ; i<image.width ; i++) {
+        for (int j=0 ; j<image.height ; j++) {
+            for (int k=0 ; k<image.channels ; k++) {
+                image(i,j,k)= 255 - image(i,j,k);
+            }
+        }
+    }
+}
+
+
 Image resizingImage(const Image &image1, int width, int height) {
     float xfaxtor = (float) image1.width / width, yfactor = (float) image1.height / height;
     Image resized(width, height);
@@ -157,7 +168,7 @@ int main() {
 
                 break;
             case 4://invert image
-
+                invert(image);
                 break;
             case 5: // Merge
                 image = mergeImage(image);
