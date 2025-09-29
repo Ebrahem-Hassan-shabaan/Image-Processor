@@ -10,7 +10,7 @@ int mainMenu() {
     };
     int choice;
     cout << "\nPlease select an option:" << endl;
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < 10; i++) {
         cout << i + 1 << ". " << menu[i] << endl;
     }
     cout << "Enter choice: ";
