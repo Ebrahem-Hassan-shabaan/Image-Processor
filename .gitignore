@@ -1,0 +1,10 @@
+
+cmake-build-*/
+.idea/
+
+
+*.exe
+*.o
+*.a
+*.dll
+*.so
