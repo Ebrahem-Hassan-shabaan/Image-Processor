@@ -9,12 +9,12 @@ using namespace std;
 int mainMenu()
 {
     // Done by Ebrahem Hassan
-    string menu[10] = {
-        "Load New Image", "Grayscale Filter", "Black and White filter", "Invert Image", "Merge Images", "Flip Image", "Rotate Image",
+    string menu[11] = {
+        "Load New Image", "Grayscale Filter", "Black and White filter", "Invert Image", "Merge Images", "Flip Image", "Rotate Image","Edge Detecting",
         "Resize Image", "Save Image", "Exit"};
     int choice;
     cout << "\nPlease select an option:" << endl;
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i < 11; i++)
     {
         cout << i + 1 << ". " << menu[i] << endl;
     }
@@ -112,6 +112,32 @@ void invert(Image &image)
             }
         }
     }
+}
+//=========================================================================
+//                            Detect Edge FILTER
+//=========================================================================
+void detectEdge(Image &i) {//done by Ebrahem Hassan
+    Image grayscaleImage=i,outputImage(i.width,i.height);
+    grayscale(grayscaleImage);
+    for (int i = 1; i < grayscaleImage.width-1; i++) {
+        for (int j = 1; j < grayscaleImage.height-1; j++) {
+            int gx=(grayscaleImage(i+1, j-1, 0)+2*grayscaleImage(i+1,j,0)+grayscaleImage(i+1,j+1,0))-(grayscaleImage(i-1, j-1, 0)+2*grayscaleImage(i-1,j,0)+grayscaleImage(i-1,j+1,0)),
+             gy=(grayscaleImage(i-1, j+1, 0)+2*grayscaleImage(i,j+1,0)+grayscaleImage(i+1,j+1,0))-(grayscaleImage(i-1, j-1, 0)+2*grayscaleImage(i,j-1,0)+grayscaleImage(i+1,j-1,0));
+            int diff=sqrt(gx*gx+gy*gy);
+            if (diff>=128) {
+                outputImage(i,j,0)=0;
+                outputImage(i,j,1)=0;
+                outputImage(i,j,2)=0;
+            }
+            else {
+                outputImage(i,j,0)=255;
+                outputImage(i,j,1)=255;
+                outputImage(i,j,2)=255;
+            }
+
+        }
+    }
+    i=outputImage;
 }
 //=========================================================================
 //                            RESIZE IMAGE
@@ -370,7 +396,12 @@ int main()
             rotate(image);
             cout << "Rotate filter applied.\n";
             break;
-        case 8:
+        case 8://detect image
+            detectEdge(image);
+            cout << "Detect Edge filter applied.\n";
+
+            break;
+        case 9:
         {
             // Resize
             cout << "Please enter the new dimensions." << endl;
@@ -383,10 +414,10 @@ int main()
             cout << "Image resized.\n";
             break;
         }
-        case 9: // Save
+        case 10: // Save
             saveTheImage(image);
             break;
-        case 10: // Exit
+        case 11: // Exit
             cout << "Thank you for using the image processor. Goodbye!" << endl;
             return 0;
         default:
