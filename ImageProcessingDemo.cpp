@@ -3,6 +3,7 @@
 #include <vector>
 using namespace std;
 #include "Image_Class.h"
+#include <limits>
 //=========================================================================
 //                            MAIN MENU FUNCTION
 //=========================================================================
@@ -20,6 +21,14 @@ int mainMenu()
     }
     cout << "Enter choice: ";
     cin >> choice;
+    while (true){
+    if (cin.fail()) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+    }
+        else {break;}
+    }
     return choice;
 }
 //=========================================================================
