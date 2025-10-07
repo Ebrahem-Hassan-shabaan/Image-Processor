@@ -9,12 +9,12 @@ using namespace std;
 int mainMenu()
 {
     // Done by Ebrahem Hassan
-    string menu[11] = {
+    string menu[12] = {
         "Load New Image", "Grayscale Filter", "Black and White filter", "Invert Image", "Merge Images", "Flip Image", "Rotate Image","Edge Detecting",
-        "Resize Image", "Save Image", "Exit"};
+        "Resize Image","Sun Light Effect ", "Save Image", "Exit"};
     int choice;
     cout << "\nPlease select an option:" << endl;
-    for (int i = 0; i < 11; i++)
+    for (int i = 0; i < 12; i++)
     {
         cout << i + 1 << ". " << menu[i] << endl;
     }
@@ -266,6 +266,32 @@ void flip(Image &image)
     image = flipped;
 }
 //=========================================================================
+//                            Sun Effect FILTER
+//=========================================================================
+void sunEffect(Image &image) {
+    for (int i = 0; i < image.width; i++) {
+        for (int j = 0; j < image.height; j++) {
+
+            int brightness = (image(i, j, 0) +  image(i, j, 1) + image(i, j, 2)) / 3;
+            int redToAdd = brightness /3 ;
+            int greenToAdd = brightness / 4;
+
+            if (image(i,j,0) +redToAdd> 255) {
+                image(i,j,0) = 255;
+            }
+            else {
+                image(i,j,0) +=redToAdd;
+            }
+            if (image(i,j,1) +greenToAdd> 255) {
+                image(i,j,1) = 255;
+            }
+            else {
+                image(i,j,1) +=greenToAdd;
+            }
+        }
+    }
+}
+//=========================================================================
 //                            SAVE IMAGE FUNCTION
 //=========================================================================
 void saveTheImage(Image &i)
@@ -412,16 +438,24 @@ int main()
             cin >> rsheight;
             image = resizingImage(image, rswidth, rsheight);
             cout << "Image resized.\n";
+            cout<<"Resize applied!";
             break;
         }
-        case 10: // Save
+        case 10://Sun Light Effect
+            sunEffect(image);
+            cout << "Sun Effect applied! .\n";
+
+
+            break;
+        case 11: // Save
             saveTheImage(image);
             break;
-        case 11: // Exit
+        case 12: // Exit
             cout << "Thank you for using the image processor. Goodbye!" << endl;
             return 0;
         default:
             cout << "Invalid option. Please choose a number from 1 to 10." << endl;
+            ///error must be solved
             break;
         }
     }
