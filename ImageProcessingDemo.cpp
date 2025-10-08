@@ -10,12 +10,12 @@ using namespace std;
 int mainMenu()
 {
     // Done by Ebrahem Hassan
-    string menu[14] = {
+    string menu[15] = {
         "Load New Image", "Grayscale Filter", "Black and White filter", "Invert Image", "Merge Images", "Flip Image", "Rotate Image","Frame","Edge Detecting",
-        "Resize Image","Blur","Sun Light Effect ", "Save Image", "Exit"};
+        "Resize Image","Blur","Sun Light Effect ", "Night Effect","Save Image", "Exit"};
     int choice;
     cout << "\nPlease select an option:" << endl;
-    for (int i = 0; i < 14; i++)
+    for (int i = 0; i < 15; i++)
     {
         cout << i + 1 << ". " << menu[i] << endl;
     }
@@ -551,6 +551,30 @@ void sunEffect(Image &image) {
     }
 }
 //=========================================================================
+//                         Night Effect FILTER
+//=========================================================================
+void nightEffect(Image &image) {
+    //Done by Youssef Ibrahim
+    Image edited_image(image.width,image.height);
+    for(int i=0;i<image.width;i++) {
+        for(int j=0;j<image.height;j++) {
+            float old_r = image(i, j, 0);
+            float old_g = image(i, j, 1);
+            float old_b = image(i, j, 2);
+
+            float new_r =  {old_r*1.4f + old_g*0.1f + old_b*0.4f};
+            float new_g = {old_r*0.05f + old_g*0.7f + old_b*0.05f};
+            float new_b = {old_r*0.1f + old_g*0.1f + old_b*1.1f};
+
+            edited_image(i,j,0)= (unsigned char)min(255.0f, new_r);
+            edited_image(i,j,1)= (unsigned char)min(255.0f, new_g);
+            edited_image(i,j,2)= (unsigned char)min(255.0f , new_b);
+        }
+    }
+    image = edited_image;
+}
+
+//=========================================================================
 //                            SAVE IMAGE FUNCTION
 //=========================================================================
 void saveTheImage(Image &i)
@@ -711,10 +735,14 @@ int main()
             sunEffect(image);
             cout << "Sun Effect applied! .\n";
             break;
-        case 13: // Save
+        case 13://Night Effect
+            nightEffect(image);
+            cout << "Night Effect filter applied.\n";
+            break;
+        case 14: // Save
             saveTheImage(image);
             break;
-        case 14: // Exit
+        case 15: // Exit
             cout << "Thank you for using the image processor. Goodbye!" << endl;
             return 0;
         default:
