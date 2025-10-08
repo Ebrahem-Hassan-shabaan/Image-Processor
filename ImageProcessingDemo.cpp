@@ -1,9 +1,12 @@
 #include <complex>
 #include <iostream>
 #include <vector>
-using namespace std;
 #include "Image_Class.h"
 #include <limits>
+
+
+using namespace std;
+
 //=========================================================================
 //                            MAIN MENU FUNCTION
 //=========================================================================
