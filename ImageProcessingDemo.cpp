@@ -10,12 +10,12 @@ using namespace std;
 int mainMenu()
 {
     // Done by Ebrahem Hassan
-    string menu[12] = {
+    string menu[13] = {
         "Load New Image", "Grayscale Filter", "Black and White filter", "Invert Image", "Merge Images", "Flip Image", "Rotate Image","Edge Detecting",
-        "Resize Image","Sun Light Effect ", "Save Image", "Exit"};
+        "Resize Image","Blur","Sun Light Effect ", "Save Image", "Exit"};
     int choice;
     cout << "\nPlease select an option:" << endl;
-    for (int i = 0; i < 12; i++)
+    for (int i = 0; i < 13; i++)
     {
         cout << i + 1 << ". " << menu[i] << endl;
     }
@@ -275,6 +275,67 @@ void flip(Image &image)
     image = flipped;
 }
 //=========================================================================
+//                            Blur FILTER
+//=========================================================================
+
+void blur(Image &img) {//Done by Youssef Ibrahim
+    int scale;
+    do {
+        cout << "Please enter blur scale (a value from 0 to 100): ";
+        cin >> scale;
+    } while (scale < 0 || scale > 100);
+    if (scale == 0) {
+        return;
+    }
+
+    scale = (scale * 40.0) / 100;
+
+
+    Image horizontally_blurred_img(img.width, img.height);
+
+    for (int j = 0; j < img.height; ++j) {
+        for (int i = 0; i < img.width; ++i) {
+            long long sumRed = 0, sumGreen = 0, sumBlue = 0;
+            int pixelCount = 0;
+
+            for (int k = i - scale; k <= i + scale; ++k) {
+                if (k >= 0 && k < img.width) {
+                    sumRed   += img(k, j, 0);
+                    sumGreen += img(k, j, 1);
+                    sumBlue  += img(k, j, 2);
+                    pixelCount++;
+                }
+            }
+
+            horizontally_blurred_img(i, j, 0) = sumRed / pixelCount;
+            horizontally_blurred_img(i, j, 1) = sumGreen / pixelCount;
+            horizontally_blurred_img(i, j, 2) = sumBlue / pixelCount;
+        }
+    }
+
+    for (int i = 0; i < img.width; ++i) {
+        for (int j = 0; j < img.height; ++j) {
+            long long sumRed = 0, sumGreen = 0, sumBlue = 0;
+            int pixelCount = 0;
+
+            for (int l = j - scale; l <= j + scale; ++l) {
+                if (l >= 0 && l < img.height) {
+                    sumRed   += horizontally_blurred_img(i, l, 0);
+                    sumGreen += horizontally_blurred_img(i, l, 1);
+                    sumBlue  += horizontally_blurred_img(i, l, 2);
+                    pixelCount++;
+                }
+            }
+            img(i, j, 0) = sumRed / pixelCount;
+            img(i, j, 1) = sumGreen / pixelCount;
+            img(i, j, 2) = sumBlue / pixelCount;
+        }
+    }
+}
+
+
+
+//=========================================================================
 //                            Sun Effect FILTER
 //=========================================================================
 void sunEffect(Image &image) {
@@ -450,16 +511,20 @@ int main()
             cout<<"Resize applied!";
             break;
         }
-        case 10://Sun Light Effect
+        case 10://Blur
+            blur(image);
+            cout << "Blur filter applied.\n";
+            break;
+        case 11://Sun Light Effect
             sunEffect(image);
             cout << "Sun Effect applied! .\n";
 
 
             break;
-        case 11: // Save
+        case 12: // Save
             saveTheImage(image);
             break;
-        case 12: // Exit
+        case 13: // Exit
             cout << "Thank you for using the image processor. Goodbye!" << endl;
             return 0;
         default:
