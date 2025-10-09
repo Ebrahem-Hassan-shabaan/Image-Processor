@@ -814,7 +814,7 @@ void crop(Image &image) // Done By Mohamed Abdelmaqsoud
 //=========================================================================
 
 void skew(Image &img)
-{
+{// Done By Mohamed Abdelmaqsoud
     int percentage;
     cout << "Enter skew percentage (positive = right, negative = left): ";
     cin >> percentage;
