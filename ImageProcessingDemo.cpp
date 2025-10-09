@@ -10,12 +10,12 @@ using namespace std;
 int mainMenu()
 {
     // Done by Ebrahem Hassan
-    string menu[17] = {
+    string menu[18] = {
         "Load New Image", "Grayscale Filter", "Black and White filter", "Invert Image", "Merge Images", "Flip Image", "Rotate Image", "Darken and Lighten Image", "Crop Image", "Frame", "Edge Detecting",
-        "Resize Image", "Blur", "Sun Light Effect ", "Night Effect", "Save Image", "Exit"};
+        "Resize Image", "Blur Filter", "Sun Light Effect ", "Night Effect", "Skew Image", "Save Image", "Exit"};
     int choice;
     cout << "\nPlease select an option:" << endl;
-    for (int i = 0; i < 17; i++)
+    for (int i = 0; i < 18; i++)
     {
         cout << i + 1 << ". " << menu[i] << endl;
     }
@@ -571,7 +571,7 @@ void blur(Image &img)
 //=========================================================================
 //                            Sun Effect FILTER
 //=========================================================================
-void sunEffect(Image &image)
+void sunEffect(Image &image) // Done By Ebrahem Hassan
 {
     for (int i = 0; i < image.width; i++)
     {
@@ -807,6 +807,61 @@ void crop(Image &image) // Done By Mohamed Abdelmaqsoud
 }
 
 //=========================================================================
+//                            Skew Image Filter
+//=========================================================================
+
+void skew(Image &img)
+{
+    int percentage;
+    cout << "Enter skew percentage (positive = right, negative = left): ";
+    cin >> percentage;
+    float precentage_float = percentage / 100.0f;
+
+    int New_Width = img.width + abs(precentage_float) * img.height;
+    int New_Height = img.height;
+
+    Image skew_image(New_Width, New_Height);
+
+    for (int i = 0; i < New_Width; ++i)
+    {
+        for (int j = 0; j < New_Height; ++j)
+        {
+            for (int k = 0; k < img.channels; ++k)
+            {
+                skew_image.setPixel(i, j, k, 255);
+            }
+        }
+    }
+
+    int offset_x = 0;
+    if (precentage_float < 0)
+    {
+        offset_x = abs(precentage_float * (img.height - 1));
+    }
+    for (int i = 0; i < img.height; ++i)
+    {
+        int shiftX = precentage_float * (img.height - 1 - i);
+
+        for (int j = 0; j < img.width; ++j)
+        {
+            int new_line_X = j + shiftX + offset_x;
+            int new_line_Y = i;
+
+            if (new_line_X >= 0 && new_line_X < New_Width &&
+                new_line_Y >= 0 && new_line_Y < New_Height)
+            {
+                for (int c = 0; c < img.channels; ++c)
+                {
+                    skew_image.setPixel(new_line_X, new_line_Y, c, img.getPixel(j, i, c));
+                }
+            }
+        }
+    }
+
+    img = skew_image;
+}
+
+//=========================================================================
 //                            MAIN PROGRAM
 //=========================================================================
 int main()
@@ -824,43 +879,43 @@ int main()
             break;
         case 2: // Grayscale
             grayscale(image);
-            cout << "Grayscale filter applied.\n";
+            cout << "Grayscale filter applied! .\n";
             break;
         case 3: // black and white
             blackandwhite(image);
-            cout << "Black and White filter applied.\n";
+            cout << "Black and White filter applied! .\n";
             break;
         case 4: // invert image
             invert(image);
-            cout << "Invert filter applied.\n";
+            cout << "Invert filter applied! .\n";
             break;
-        case 5: // Merge
+        case 5: // Merge image
             image = mergeImage(image);
-            cout << "Merge filter applied.\n";
+            cout << "Merge filter applied! .\n";
             break;
         case 6: // flip
             flip(image);
-            cout << "Flip filter applied.\n";
+            cout << "Flip filter applied! .\n";
             break;
         case 7: // Rotate
             rotate(image);
-            cout << "Rotate filter applied.\n";
+            cout << "Rotate filter applied! .\n";
             break;
         case 8: // Darken and Lighten
             DarkenandLighten(image);
-            cout << "Darken and Lighten filter applied.\n";
+            cout << "Darken and Lighten filter applied! .\n";
             break;
         case 9: // Crop
             crop(image);
-            cout << "Crop filter applied.\n";
+            cout << "Crop filter applied! .\n";
             break;
         case 10: // Frame image
             frame(image);
-            cout << "Frame filter applied.\n";
+            cout << "Frame filter applied! .\n";
             break;
         case 11: // detect image
             detectEdge(image);
-            cout << "Detect Edge filter applied.\n";
+            cout << "Detect Edge filter applied! .\n";
             break;
         case 12:
         {
@@ -872,13 +927,12 @@ int main()
             cout << "New height: ";
             cin >> rsheight;
             image = resizingImage(image, rswidth, rsheight);
-            cout << "Image resized.\n";
-            cout << "Resize applied!";
+            cout << "Resize applied! .\n";
             break;
         }
         case 13: // Blur
             blur(image);
-            cout << "Blur filter applied.\n";
+            cout << "Blur filter applied! .\n";
             break;
         case 14: // Sun Light Effect
             sunEffect(image);
@@ -886,13 +940,17 @@ int main()
             break;
         case 15: // Night Effect
             nightEffect(image);
-            cout << "Night Effect filter applied.\n";
+            cout << "Night Effect filter applied! .\n";
             break;
-        case 16: // Save
+        case 16: // Skew
+            skew(image);
+            cout << "Skew Image filter applied! .\n";
+            break;
+        case 17: // Save
             saveTheImage(image);
             break;
-        case 17: // Exit
-            cout << "Thank you for using the image processor. Goodbye!" << endl;
+        case 18: // Exit
+            cout << "Thank you for using the image processor. Goodbye! ." << endl;
             return 0;
         default:
             cout << "Invalid option. Please choose a number from 1 to 10." << endl;
