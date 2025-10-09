@@ -10,24 +10,28 @@ using namespace std;
 int mainMenu()
 {
     // Done by Ebrahem Hassan
-    string menu[15] = {
-        "Load New Image", "Grayscale Filter", "Black and White filter", "Invert Image", "Merge Images", "Flip Image", "Rotate Image","Frame","Edge Detecting",
-        "Resize Image","Blur","Sun Light Effect ", "Night Effect","Save Image", "Exit"};
+    string menu[17] = {
+        "Load New Image", "Grayscale Filter", "Black and White filter", "Invert Image", "Merge Images", "Flip Image", "Rotate Image", "Darken and Lighten Image", "Crop Image", "Frame", "Edge Detecting",
+        "Resize Image", "Blur", "Sun Light Effect ", "Night Effect", "Save Image", "Exit"};
     int choice;
     cout << "\nPlease select an option:" << endl;
-    for (int i = 0; i < 15; i++)
+    for (int i = 0; i < 17; i++)
     {
         cout << i + 1 << ". " << menu[i] << endl;
     }
     cout << "Enter choice: ";
     cin >> choice;
-    while (true){
-    if (cin.fail()) {
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
-    }
-        else {break;}
+    while (true)
+    {
+        if (cin.fail())
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+        else
+        {
+            break;
+        }
     }
     return choice;
 }
@@ -125,28 +129,32 @@ void invert(Image &image)
 //=========================================================================
 //                            Detect Edge FILTER
 //=========================================================================
-void detectEdge(Image &i) {//done by Ebrahem Hassan
-    Image grayscaleImage=i,outputImage(i.width,i.height);
+void detectEdge(Image &i)
+{ // done by Ebrahem Hassan
+    Image grayscaleImage = i, outputImage(i.width, i.height);
     grayscale(grayscaleImage);
-    for (int i = 1; i < grayscaleImage.width-1; i++) {
-        for (int j = 1; j < grayscaleImage.height-1; j++) {
-            int gx=(grayscaleImage(i+1, j-1, 0)+2*grayscaleImage(i+1,j,0)+grayscaleImage(i+1,j+1,0))-(grayscaleImage(i-1, j-1, 0)+2*grayscaleImage(i-1,j,0)+grayscaleImage(i-1,j+1,0)),
-             gy=(grayscaleImage(i-1, j+1, 0)+2*grayscaleImage(i,j+1,0)+grayscaleImage(i+1,j+1,0))-(grayscaleImage(i-1, j-1, 0)+2*grayscaleImage(i,j-1,0)+grayscaleImage(i+1,j-1,0));
-            int diff=sqrt(gx*gx+gy*gy);
-            if (diff>=128) {
-                outputImage(i,j,0)=0;
-                outputImage(i,j,1)=0;
-                outputImage(i,j,2)=0;
+    for (int i = 1; i < grayscaleImage.width - 1; i++)
+    {
+        for (int j = 1; j < grayscaleImage.height - 1; j++)
+        {
+            int gx = (grayscaleImage(i + 1, j - 1, 0) + 2 * grayscaleImage(i + 1, j, 0) + grayscaleImage(i + 1, j + 1, 0)) - (grayscaleImage(i - 1, j - 1, 0) + 2 * grayscaleImage(i - 1, j, 0) + grayscaleImage(i - 1, j + 1, 0)),
+                gy = (grayscaleImage(i - 1, j + 1, 0) + 2 * grayscaleImage(i, j + 1, 0) + grayscaleImage(i + 1, j + 1, 0)) - (grayscaleImage(i - 1, j - 1, 0) + 2 * grayscaleImage(i, j - 1, 0) + grayscaleImage(i + 1, j - 1, 0));
+            int diff = sqrt(gx * gx + gy * gy);
+            if (diff >= 128)
+            {
+                outputImage(i, j, 0) = 0;
+                outputImage(i, j, 1) = 0;
+                outputImage(i, j, 2) = 0;
             }
-            else {
-                outputImage(i,j,0)=255;
-                outputImage(i,j,1)=255;
-                outputImage(i,j,2)=255;
+            else
+            {
+                outputImage(i, j, 0) = 255;
+                outputImage(i, j, 1) = 255;
+                outputImage(i, j, 2) = 255;
             }
-
         }
     }
-    i=outputImage;
+    i = outputImage;
 }
 //=========================================================================
 //                            RESIZE IMAGE
@@ -172,155 +180,182 @@ Image resizingImage(const Image &image1, int width, int height)
 //=========================================================================
 //                            Frame FUNCTION
 //=========================================================================
-void frame(Image &image) {// Made by Youssef Ibrahim
+void frame(Image &image)
+{ // Made by Youssef Ibrahim
     cout << "--- Please Choose a Frame Style ---" << endl;
     cout << "1. Simple Frame (Single Color)" << endl;
     cout << "2. Double Frame (Two Colors)" << endl;
     cout << "3. Elegant Frame (Matte with Spacing)" << endl;
     cout << "4. Decorative Image Frame" << endl;
-int x;
-    cin>>x;
-    if(x==1) {
+    int x;
+    cin >> x;
+    if (x == 1)
+    {
         int frameThickness = 20;
-        char b_color=255;
-        char g_color=0;
-        char r_color=0;
-        int newwidth=image.width+(frameThickness*2);
-        int newheight=image.height+(frameThickness*2);
-        Image framedImage(newwidth,newheight);
-        for(int i=0;i<newwidth;i++) {
-            for(int j=0;j<newheight;j++) {
-                framedImage(i,j,0) = r_color;
-                framedImage(i,j,1) = g_color;
-                framedImage(i,j,2) = b_color;
+        char b_color = 255;
+        char g_color = 0;
+        char r_color = 0;
+        int newwidth = image.width + (frameThickness * 2);
+        int newheight = image.height + (frameThickness * 2);
+        Image framedImage(newwidth, newheight);
+        for (int i = 0; i < newwidth; i++)
+        {
+            for (int j = 0; j < newheight; j++)
+            {
+                framedImage(i, j, 0) = r_color;
+                framedImage(i, j, 1) = g_color;
+                framedImage(i, j, 2) = b_color;
             }
         }
-        for(int i=0;i<image.width;i++) {
-            for(int j=0;j<image.height;j++) {
-                int startX = i+frameThickness;
-                int startY = j+frameThickness;
-                framedImage(startX,startY,0) = image(i,j,0);
-                framedImage(startX,startY,1) = image(i,j,1);
-                framedImage(startX,startY,2) = image(i,j,2);
+        for (int i = 0; i < image.width; i++)
+        {
+            for (int j = 0; j < image.height; j++)
+            {
+                int startX = i + frameThickness;
+                int startY = j + frameThickness;
+                framedImage(startX, startY, 0) = image(i, j, 0);
+                framedImage(startX, startY, 1) = image(i, j, 1);
+                framedImage(startX, startY, 2) = image(i, j, 2);
             }
         }
         image = framedImage;
     }
-    else if(x==2) {
+    else if (x == 2)
+    {
         int outerframeThickness = 20;
-        char outerB_color=255;
-        char outerG_color=0;
-        char outerR_color=0;
+        char outerB_color = 255;
+        char outerG_color = 0;
+        char outerR_color = 0;
         int innerframeThickness = 10;
-        char innerB_color=255;
-        char innerG_color=255;
-        char innerR_color=255;
+        char innerB_color = 255;
+        char innerG_color = 255;
+        char innerR_color = 255;
         int totalBorderThickness = outerframeThickness + innerframeThickness;
-        int newwidth=image.width+(totalBorderThickness*2);
-        int newheight=image.height+(totalBorderThickness*2);
-        Image framedImage(newwidth,newheight);
-        for(int i=0;i<newwidth;i++) {
-            for(int j=0;j<newheight;j++) {
-                framedImage(i,j,0) = outerR_color;
-                framedImage(i,j,1) = outerG_color;
-                framedImage(i,j,2) = outerB_color;
+        int newwidth = image.width + (totalBorderThickness * 2);
+        int newheight = image.height + (totalBorderThickness * 2);
+        Image framedImage(newwidth, newheight);
+        for (int i = 0; i < newwidth; i++)
+        {
+            for (int j = 0; j < newheight; j++)
+            {
+                framedImage(i, j, 0) = outerR_color;
+                framedImage(i, j, 1) = outerG_color;
+                framedImage(i, j, 2) = outerB_color;
             }
         }
 
         int startX = outerframeThickness;
         int startY = outerframeThickness;
-                for(int i=outerframeThickness;i<newwidth - outerframeThickness;i++) {
-                    for(int j=outerframeThickness;j<newheight - outerframeThickness;j++) {
-                        framedImage(i,j,0) = innerR_color;
-                        framedImage(i,j,1) = innerG_color;
-                        framedImage(i,j,2) = innerB_color;
-                    }
-                }
-        for(int i = 0 ; i < image.width; i++) {
-            for(int j = 0 ; j < image.height; j++) {
-                int start1X = i+totalBorderThickness;
-                int start1Y = j+totalBorderThickness;
-             framedImage(start1X,start1Y,0) = image(i,j,0);
-                framedImage(start1X,start1Y,1) = image(i,j,1);
-                framedImage(start1X,start1Y,2) = image(i,j,2);
+        for (int i = outerframeThickness; i < newwidth - outerframeThickness; i++)
+        {
+            for (int j = outerframeThickness; j < newheight - outerframeThickness; j++)
+            {
+                framedImage(i, j, 0) = innerR_color;
+                framedImage(i, j, 1) = innerG_color;
+                framedImage(i, j, 2) = innerB_color;
+            }
+        }
+        for (int i = 0; i < image.width; i++)
+        {
+            for (int j = 0; j < image.height; j++)
+            {
+                int start1X = i + totalBorderThickness;
+                int start1Y = j + totalBorderThickness;
+                framedImage(start1X, start1Y, 0) = image(i, j, 0);
+                framedImage(start1X, start1Y, 1) = image(i, j, 1);
+                framedImage(start1X, start1Y, 2) = image(i, j, 2);
             }
         }
         image = framedImage;
     }
-    else if(x==3) {
+    else if (x == 3)
+    {
         int outerframeThickness = 20;
-        char outerB_color=255;
-        char outerG_color=0;
-        char outerR_color=0;
+        char outerB_color = 255;
+        char outerG_color = 0;
+        char outerR_color = 0;
         int spacing = 5;
-        char spaceB_color=0;
-        char spaceG_color=0;
-        char spaceR_color=0;
+        char spaceB_color = 0;
+        char spaceG_color = 0;
+        char spaceR_color = 0;
         int whiteFrame = 5;
         char white_R = 255;
         char white_G = 255;
         char white_B = 255;
         int totalFrameThickness = outerframeThickness + spacing + whiteFrame + spacing + whiteFrame;
-        int newwidth=image.width+(totalFrameThickness*2);
-        int newheight=image.height+(totalFrameThickness*2);
-        Image framedImage(newwidth,newheight);
-        for(int i=0;i<newwidth;i++) {
-            for(int j=0;j<newheight;j++) {
-                framedImage(i,j,0) = outerR_color;
-                framedImage(i,j,1) = outerG_color;
-                framedImage(i,j,2) = outerB_color;
+        int newwidth = image.width + (totalFrameThickness * 2);
+        int newheight = image.height + (totalFrameThickness * 2);
+        Image framedImage(newwidth, newheight);
+        for (int i = 0; i < newwidth; i++)
+        {
+            for (int j = 0; j < newheight; j++)
+            {
+                framedImage(i, j, 0) = outerR_color;
+                framedImage(i, j, 1) = outerG_color;
+                framedImage(i, j, 2) = outerB_color;
             }
         }
         int currentBorder = outerframeThickness;
-        for(int i=currentBorder;i<newwidth-currentBorder;i++) {
-            for(int j=currentBorder;j<newheight-currentBorder;j++) {
-                framedImage(i,j,0) = spaceB_color;
-                framedImage(i,j,1) = spaceG_color;
-                framedImage(i,j,2) = spaceR_color;
+        for (int i = currentBorder; i < newwidth - currentBorder; i++)
+        {
+            for (int j = currentBorder; j < newheight - currentBorder; j++)
+            {
+                framedImage(i, j, 0) = spaceB_color;
+                framedImage(i, j, 1) = spaceG_color;
+                framedImage(i, j, 2) = spaceR_color;
             }
         }
-    currentBorder +=spacing;
-        for(int i=currentBorder;i<newwidth-currentBorder;i++) {
-            for(int j=currentBorder;j<newheight-currentBorder;j++) {
-                framedImage(i,j,0) = white_R;
-                framedImage(i,j,1) = white_G;
-                framedImage(i,j,2) = white_B;
+        currentBorder += spacing;
+        for (int i = currentBorder; i < newwidth - currentBorder; i++)
+        {
+            for (int j = currentBorder; j < newheight - currentBorder; j++)
+            {
+                framedImage(i, j, 0) = white_R;
+                framedImage(i, j, 1) = white_G;
+                framedImage(i, j, 2) = white_B;
             }
         }
-    currentBorder +=whiteFrame;
-        for(int i=currentBorder;i<newwidth-currentBorder;i++) {
-            for(int j=currentBorder;j<newheight-currentBorder;j++) {
-                framedImage(i,j,0) = spaceR_color;
-                framedImage(i,j,1) = spaceG_color;
-                framedImage(i,j,2) = spaceB_color;
+        currentBorder += whiteFrame;
+        for (int i = currentBorder; i < newwidth - currentBorder; i++)
+        {
+            for (int j = currentBorder; j < newheight - currentBorder; j++)
+            {
+                framedImage(i, j, 0) = spaceR_color;
+                framedImage(i, j, 1) = spaceG_color;
+                framedImage(i, j, 2) = spaceB_color;
             }
         }
-    currentBorder +=spacing;
-        for(int i=currentBorder;i<newwidth-currentBorder;i++) {
-            for(int j=currentBorder;j<newheight-currentBorder;j++) {
-                framedImage(i,j,0) = white_R;
-                framedImage(i,j,1) = white_G;
-                framedImage(i,j,2) = white_B;
+        currentBorder += spacing;
+        for (int i = currentBorder; i < newwidth - currentBorder; i++)
+        {
+            for (int j = currentBorder; j < newheight - currentBorder; j++)
+            {
+                framedImage(i, j, 0) = white_R;
+                framedImage(i, j, 1) = white_G;
+                framedImage(i, j, 2) = white_B;
             }
         }
-    currentBorder +=whiteFrame;
-        for(int i=0;i<image.width;i++) {
-            for(int j=0;j<image.height;j++) {
-                int start1X = i+currentBorder;
-                int start1Y = j+currentBorder;
+        currentBorder += whiteFrame;
+        for (int i = 0; i < image.width; i++)
+        {
+            for (int j = 0; j < image.height; j++)
+            {
+                int start1X = i + currentBorder;
+                int start1Y = j + currentBorder;
 
-                framedImage(start1X,start1Y,0) = image(i,j,0);
-                framedImage(start1X,start1Y,1) = image(i,j,1);
-                framedImage(start1X,start1Y,2) = image(i,j,2);
+                framedImage(start1X, start1Y, 0) = image(i, j, 0);
+                framedImage(start1X, start1Y, 1) = image(i, j, 1);
+                framedImage(start1X, start1Y, 2) = image(i, j, 2);
             }
         }
         image = framedImage;
     }
-    if(x==4) {
+    if (x == 4)
+    {
         Image frame("FRAME.jpg");
         frame = resizingImage(frame, image.width, image.height);
 
-        int frameThickness = 20 ;
+        int frameThickness = 20;
         char b_color = 255;
         char g_color = 255;
         char r_color = 255;
@@ -329,33 +364,34 @@ int x;
         int newheight = image.height;
         Image framedImage = frame;
 
-        for(int i=0;i<newwidth;i++) {
-            for(int j=0;j<newheight;j++) {
-                framedImage(i,j,0) = r_color;
-                framedImage(i,j,1) = g_color;
-                framedImage(i,j,2) = b_color;
+        for (int i = 0; i < newwidth; i++)
+        {
+            for (int j = 0; j < newheight; j++)
+            {
+                framedImage(i, j, 0) = r_color;
+                framedImage(i, j, 1) = g_color;
+                framedImage(i, j, 2) = b_color;
             }
         }
-        for (int i = frameThickness; i < newwidth - frameThickness; i++) {
-            for (int j = frameThickness; j < newheight - frameThickness; j++) {
+        for (int i = frameThickness; i < newwidth - frameThickness; i++)
+        {
+            for (int j = frameThickness; j < newheight - frameThickness; j++)
+            {
 
-                if (frame(i, j, 0) > 230 && frame(i, j, 1) > 230 && frame(i, j, 2) > 230) {
+                if (frame(i, j, 0) > 230 && frame(i, j, 1) > 230 && frame(i, j, 2) > 230)
+                {
 
-                    for (int k = 0; k < 3; k++) {
+                    for (int k = 0; k < 3; k++)
+                    {
                         framedImage(i, j, k) = image(i, j, k);
                     }
                 }
-                }
+            }
         }
 
         image = framedImage;
     }
-
 }
-
-
-
-
 
 //=========================================================================
 //                            MERGE FILTER
@@ -450,11 +486,11 @@ void flip(Image &image)
         {
             for (int k = 0; k < 3; ++k)
             {
-                if (c == 'H'||c == 'h')
+                if (c == 'H' || c == 'h')
                 {
                     flipped(image.width - 1 - i, j, k) = image(i, j, k);
                 }
-                else if (c == 'V'||c == 'v')
+                else if (c == 'V' || c == 'v')
                 {
                     flipped(i, image.height - 1 - j, k) = image(i, j, k);
                 }
@@ -467,31 +503,37 @@ void flip(Image &image)
 //                            Blur FILTER
 //=========================================================================
 
-void blur(Image &img) {//Done by Youssef Ibrahim
+void blur(Image &img)
+{ // Done by Youssef Ibrahim
     int scale;
-    do {
+    do
+    {
         cout << "Please enter blur scale (a value from 0 to 100): ";
         cin >> scale;
     } while (scale < 0 || scale > 100);
-    if (scale == 0) {
+    if (scale == 0)
+    {
         return;
     }
 
     scale = (scale * 40.0) / 100;
 
-
     Image horizontally_blurred_img(img.width, img.height);
 
-    for (int j = 0; j < img.height; ++j) {
-        for (int i = 0; i < img.width; ++i) {
+    for (int j = 0; j < img.height; ++j)
+    {
+        for (int i = 0; i < img.width; ++i)
+        {
             long long sumRed = 0, sumGreen = 0, sumBlue = 0;
             int pixelCount = 0;
 
-            for (int k = i - scale; k <= i + scale; ++k) {
-                if (k >= 0 && k < img.width) {
-                    sumRed   += img(k, j, 0);
+            for (int k = i - scale; k <= i + scale; ++k)
+            {
+                if (k >= 0 && k < img.width)
+                {
+                    sumRed += img(k, j, 0);
                     sumGreen += img(k, j, 1);
-                    sumBlue  += img(k, j, 2);
+                    sumBlue += img(k, j, 2);
                     pixelCount++;
                 }
             }
@@ -502,16 +544,20 @@ void blur(Image &img) {//Done by Youssef Ibrahim
         }
     }
 
-    for (int i = 0; i < img.width; ++i) {
-        for (int j = 0; j < img.height; ++j) {
+    for (int i = 0; i < img.width; ++i)
+    {
+        for (int j = 0; j < img.height; ++j)
+        {
             long long sumRed = 0, sumGreen = 0, sumBlue = 0;
             int pixelCount = 0;
 
-            for (int l = j - scale; l <= j + scale; ++l) {
-                if (l >= 0 && l < img.height) {
-                    sumRed   += horizontally_blurred_img(i, l, 0);
+            for (int l = j - scale; l <= j + scale; ++l)
+            {
+                if (l >= 0 && l < img.height)
+                {
+                    sumRed += horizontally_blurred_img(i, l, 0);
                     sumGreen += horizontally_blurred_img(i, l, 1);
-                    sumBlue  += horizontally_blurred_img(i, l, 2);
+                    sumBlue += horizontally_blurred_img(i, l, 2);
                     pixelCount++;
                 }
             }
@@ -522,30 +568,35 @@ void blur(Image &img) {//Done by Youssef Ibrahim
     }
 }
 
-
-
 //=========================================================================
 //                            Sun Effect FILTER
 //=========================================================================
-void sunEffect(Image &image) {
-    for (int i = 0; i < image.width; i++) {
-        for (int j = 0; j < image.height; j++) {
+void sunEffect(Image &image)
+{
+    for (int i = 0; i < image.width; i++)
+    {
+        for (int j = 0; j < image.height; j++)
+        {
 
-            int brightness = (image(i, j, 0) +  image(i, j, 1) + image(i, j, 2)) / 3;
-            int redToAdd = brightness /3 ;
+            int brightness = (image(i, j, 0) + image(i, j, 1) + image(i, j, 2)) / 3;
+            int redToAdd = brightness / 3;
             int greenToAdd = brightness / 4;
 
-            if (image(i,j,0) +redToAdd> 255) {
-                image(i,j,0) = 255;
+            if (image(i, j, 0) + redToAdd > 255)
+            {
+                image(i, j, 0) = 255;
             }
-            else {
-                image(i,j,0) +=redToAdd;
+            else
+            {
+                image(i, j, 0) += redToAdd;
             }
-            if (image(i,j,1) +greenToAdd> 255) {
-                image(i,j,1) = 255;
+            if (image(i, j, 1) + greenToAdd > 255)
+            {
+                image(i, j, 1) = 255;
             }
-            else {
-                image(i,j,1) +=greenToAdd;
+            else
+            {
+                image(i, j, 1) += greenToAdd;
             }
         }
     }
@@ -553,22 +604,25 @@ void sunEffect(Image &image) {
 //=========================================================================
 //                         Night Effect FILTER
 //=========================================================================
-void nightEffect(Image &image) {
-    //Done by Youssef Ibrahim
-    Image edited_image(image.width,image.height);
-    for(int i=0;i<image.width;i++) {
-        for(int j=0;j<image.height;j++) {
+void nightEffect(Image &image)
+{
+    // Done by Youssef Ibrahim
+    Image edited_image(image.width, image.height);
+    for (int i = 0; i < image.width; i++)
+    {
+        for (int j = 0; j < image.height; j++)
+        {
             float old_r = image(i, j, 0);
             float old_g = image(i, j, 1);
             float old_b = image(i, j, 2);
 
-            float new_r =  {old_r*1.4f + old_g*0.1f + old_b*0.4f};
-            float new_g = {old_r*0.05f + old_g*0.7f + old_b*0.05f};
-            float new_b = {old_r*0.1f + old_g*0.1f + old_b*1.1f};
+            float new_r = {old_r * 1.4f + old_g * 0.1f + old_b * 0.4f};
+            float new_g = {old_r * 0.05f + old_g * 0.7f + old_b * 0.05f};
+            float new_b = {old_r * 0.1f + old_g * 0.1f + old_b * 1.1f};
 
-            edited_image(i,j,0)= (unsigned char)min(255.0f, new_r);
-            edited_image(i,j,1)= (unsigned char)min(255.0f, new_g);
-            edited_image(i,j,2)= (unsigned char)min(255.0f , new_b);
+            edited_image(i, j, 0) = (unsigned char)min(255.0f, new_r);
+            edited_image(i, j, 1) = (unsigned char)min(255.0f, new_g);
+            edited_image(i, j, 2) = (unsigned char)min(255.0f, new_b);
         }
     }
     image = edited_image;
@@ -664,6 +718,93 @@ void rotate(Image &img)
         img = newImage;
     }
 }
+//=========================================================================
+//                            Darken and Lighten Image Filter
+//=========================================================================
+
+void DarkenandLighten(Image &image) // Done By Mohamed Abdelmaqsoud
+{
+    char choice;
+    double percent;
+
+    cout << "Do you want to Lighten (L) or Darken (D) the image? ";
+    cin >> choice;
+    choice = toupper(choice);
+
+    if (choice == 'L')
+        cout << "Enter lightening percentage (0 to 100): ";
+    else
+        cout << "Enter darkening percentage (0 to 100): ";
+
+    while (true)
+    {
+        cin >> percent;
+        if (percent >= 0 || percent <= 100)
+        {
+            break;
+        }
+        else
+        {
+            cout << "Invalid percentage range!\n";
+            cout << "Please Enter perctange range (0 to 100).\n";
+        }
+    }
+
+    if (choice == 'D')
+    {
+        percent = -1 * percent;
+    }
+    double factor = 1.0 + (percent / 100.0);
+
+    for (int i = 0; i < image.width; i++)
+    {
+        for (int j = 0; j < image.height; j++)
+        {
+            for (int k = 0; k < 3; k++)
+            {
+                int newVal = image(i, j, k) * factor;
+
+                if (newVal < 0)
+                    newVal = 0;
+                if (newVal > 255)
+                    newVal = 255;
+
+                image(i, j, k) = newVal;
+            }
+        }
+    }
+}
+
+//=========================================================================
+//                            Crop Image Filter
+//=========================================================================
+
+void crop(Image &image) // Done By Mohamed Abdelmaqsoud
+{
+    int x, y, width, height;
+    cout << "Enter x, y, width, height for cropping: ";
+    cin >> x >> y >> width >> height;
+
+    if (x + width > image.width)
+        width = image.width - x;
+    if (y + height > image.height)
+        height = image.height - y;
+
+    Image newimage(width, height);
+
+    for (int i = 0; i < width; i++)
+    {
+        for (int j = 0; j < height; j++)
+        {
+            for (int k = 0; k < 3; k++)
+            {
+                newimage(i, j, k) = image(x + i, y + j, k);
+            }
+        }
+    }
+
+    image = newimage;
+}
 
 //=========================================================================
 //                            MAIN PROGRAM
@@ -705,15 +846,23 @@ int main()
             rotate(image);
             cout << "Rotate filter applied.\n";
             break;
-        case 8://Frame image
+        case 8: // Darken and Lighten
+            DarkenandLighten(image);
+            cout << "Darken and Lighten filter applied.\n";
+            break;
+        case 9: // Crop
+            crop(image);
+            cout << "Crop filter applied.\n";
+            break;
+        case 10: // Frame image
             frame(image);
             cout << "Frame filter applied.\n";
             break;
-        case 9://detect image
+        case 11: // detect image
             detectEdge(image);
             cout << "Detect Edge filter applied.\n";
             break;
-        case 10:
+        case 12:
         {
             // Resize
             cout << "Please enter the new dimensions." << endl;
@@ -724,25 +873,25 @@ int main()
             cin >> rsheight;
             image = resizingImage(image, rswidth, rsheight);
             cout << "Image resized.\n";
-            cout<<"Resize applied!";
+            cout << "Resize applied!";
             break;
         }
-        case 11://Blur
+        case 13: // Blur
             blur(image);
             cout << "Blur filter applied.\n";
             break;
-        case 12://Sun Light Effect
+        case 14: // Sun Light Effect
             sunEffect(image);
             cout << "Sun Effect applied! .\n";
             break;
-        case 13://Night Effect
+        case 15: // Night Effect
             nightEffect(image);
             cout << "Night Effect filter applied.\n";
             break;
-        case 14: // Save
+        case 16: // Save
             saveTheImage(image);
             break;
-        case 15: // Exit
+        case 17: // Exit
             cout << "Thank you for using the image processor. Goodbye!" << endl;
             return 0;
         default:
