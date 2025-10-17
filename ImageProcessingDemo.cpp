@@ -165,15 +165,20 @@ void detectEdge(Image &i)
 Image resizingImage(const Image &image1, int width, int height)
 {
     // Done by Ebrahem Hassan
-    float xfaxtor = (float)image1.width / width, yfactor = (float)image1.height / height;
+    double xfaxtor = (double)image1.width / width, yfactor = (double)image1.height / height;
     Image resized(width, height);
     for (int i = 0; i < width; i++)
     {
         for (int j = 0; j < height; j++)
         {
+            int original_x = round(i * xfaxtor);
+            int original_y = round(j * yfactor);
+
+            original_x = min(original_x, image1.width - 1);
+            original_y = min(original_y, image1.height - 1);
             for (int k = 0; k < 3; k++)
             {
-                resized(i, j, k) = image1(round(i * xfaxtor), round(j * yfactor), k);
+                resized(i, j, k) = image1(original_x, original_y, k);
             }
         }
     }
