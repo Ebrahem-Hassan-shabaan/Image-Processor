@@ -18,7 +18,7 @@
 [![Standard](https://img.shields.io/badge/Standard-C%2B%2B20-orange?style=for-the-badge)](https://isocpp.org/)
 [![Library](https://img.shields.io/badge/Library-stb__image-green?style=for-the-badge)](https://github.com/nothings/stb)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS-lightgrey?style=for-the-badge&logo=linux)](https://cmake.org/)
-[![Formats](https://img.shields.io/badge/Formats-JPG%20%7C%20PNG%20%7C%20BMP%20%7C%20TGA-purple?style=for-the-badge)](https://github.com/nothings/stb)
+![Formats](https://img.shields.io/badge/Formats-JPG%20%7C%20PNG%20%7C%20BMP%20%7C%20TGA-purple?style=for-the-badge)
 
 <br/>
 
