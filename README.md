@@ -23,13 +23,13 @@
 <br/>
 
 <!-- NAVIGATION PILLS -->
-[📖 Overview](#-overview) &nbsp;•&nbsp;
-[✨ Features](#-features) &nbsp;•&nbsp;
-[🏗️ Architecture](#️-architecture) &nbsp;•&nbsp;
-[⚙️ Build](#️-build) &nbsp;•&nbsp;
-[🚀 Usage](#-usage) &nbsp;•&nbsp;
-[🎨 Filters Gallery](#-filters-gallery) &nbsp;•&nbsp;
-[👥 Contributors](#-contributors)
+[ Overview](#-overview) &nbsp;•&nbsp;
+[ Features](#-features) &nbsp;•&nbsp;
+[ Architecture](#️-architecture) &nbsp;•&nbsp;
+[ Build](#️-build) &nbsp;•&nbsp;
+[ Usage](#-usage) &nbsp;•&nbsp;
+[ Filters Gallery](#-filters-gallery) &nbsp;•&nbsp;
+[ Contributors](#-contributors)
 
 <br/>
 
@@ -37,7 +37,7 @@
 
 </div>
 
-## 📖 Overview
+##  Overview
 
 **Image Processor** is a feature-rich, console-based image manipulation tool written in **C++20**. It is built on the lightweight [`stb_image`](https://github.com/nothings/stb) single-header library, giving it zero heavy-weight dependencies while supporting the most common image formats.
 
@@ -45,35 +45,35 @@ Load any photo, apply one or more filters/transformations interactively from the
 
 ---
 
-## ✨ Features
+##  Features
 
 <div align="center">
 
 | # | Feature | Description |
 |---|---------|-------------|
-| 1 | 🖼️ **Load Image** | Load any supported image from disk |
-| 2 | ⬛ **Grayscale** | Convert image to greyscale using average channel intensity |
-| 3 | 🖤 **Black & White** | Hard threshold (≥128 → white, <128 → black) |
-| 4 | 🔄 **Invert** | Invert every channel value (`255 − value`) |
-| 5 | 🔀 **Merge Images** | Blend two images (same size or auto-resize / crop to common area) |
-| 6 | ↔️ **Flip** | Horizontal or vertical mirror flip |
-| 7 | 🔃 **Rotate** | Rotate 90°, 180°, or 270° clockwise |
-| 8 | 🌗 **Darken / Lighten** | Adjust brightness by a percentage |
-| 9 | ✂️ **Crop** | Extract a rectangular region |
-| 10 | 🖼 **Frame** | Add a decorative border (4 styles) |
-| 11 | 🔍 **Edge Detection** | Sobel operator edge detection |
-| 12 | 📐 **Resize** | Scale to any width × height (nearest-neighbour) |
-| 13 | 🌫️ **Blur** | Box blur with adjustable radius (0–100 scale) |
-| 14 | ☀️ **Sunlight Effect** | Warm, sun-drenched colour grading |
-| 15 | 🌙 **Night Effect** | Cool blue-toned night colour grading |
-| 16 | 📐 **Skew** | Horizontal shear / skew by percentage |
-| 17 | 💾 **Save Image** | Save to `.jpg`, `.png`, `.bmp`, or `.tga` |
+| 1 |  **Load Image** | Load any supported image from disk |
+| 2 |  **Grayscale** | Convert image to greyscale using average channel intensity |
+| 3 |  **Black & White** | Hard threshold (≥128 → white, <128 → black) |
+| 4 |  **Invert** | Invert every channel value (`255 − value`) |
+| 5 |  **Merge Images** | Blend two images (same size or auto-resize / crop to common area) |
+| 6 |  **Flip** | Horizontal or vertical mirror flip |
+| 7 |  **Rotate** | Rotate 90°, 180°, or 270° clockwise |
+| 8 |  **Darken / Lighten** | Adjust brightness by a percentage |
+| 9 |  **Crop** | Extract a rectangular region |
+| 10 |  **Frame** | Add a decorative border (4 styles) |
+| 11 |  **Edge Detection** | Sobel operator edge detection |
+| 12 |  **Resize** | Scale to any width × height (nearest-neighbour) |
+| 13 |  **Blur** | Box blur with adjustable radius (0–100 scale) |
+| 14 |  **Sunlight Effect** | Warm, sun-drenched colour grading |
+| 15 |  **Night Effect** | Cool blue-toned night colour grading |
+| 16 |  **Skew** | Horizontal shear / skew by percentage |
+| 17 | **Save Image** | Save to `.jpg`, `.png`, `.bmp`, or `.tga` |
 
 </div>
 
 ---
 
-## 🏗️ Architecture
+##  Architecture
 
 ```
 Image-Processor/
@@ -137,7 +137,7 @@ build\Release\ImageFilters.exe  # Windows
 
 ---
 
-## 🚀 Usage
+## Usage
 
 When you launch the program, it first asks you to load an image, then presents an interactive menu:
 
@@ -187,7 +187,7 @@ Enter choice: 18         ← exit
 
 ---
 
-## 🎨 Filters Gallery
+##  Filters Gallery
 
 ### Grayscale & Black-and-White
 > Grayscale averages the three channels. Black & White then thresholds at 128.
@@ -207,9 +207,9 @@ Original  →  Grayscale  →  Black & White
 
 | Effect | Description |
 |--------|-------------|
-| ☀️ Sunlight | Boosts red by `brightness/3` and green by `brightness/4` |
-| 🌙 Night | Applies a colour matrix emphasising blue tones |
-| 🌗 Darken/Lighten | Multiplies every channel by `1 ± (percent/100)` |
+|  Sunlight | Boosts red by `brightness/3` and green by `brightness/4` |
+|  Night | Applies a colour matrix emphasising blue tones |
+|  Darken/Lighten | Multiplies every channel by `1 ± (percent/100)` |
 
 ### Frame Styles
 
@@ -227,7 +227,7 @@ When the two images differ in size you can choose:
 
 ---
 
-## 👥 Contributors
+##  Contributors
 
 | Name | Role |
 |------|------|
@@ -245,7 +245,7 @@ When the two images differ in size you can choose:
 
 <div align="center">
 
-Made with ❤️ at **FCAI · Cairo University**
+
 
 [![C++](https://img.shields.io/badge/C%2B%2B20-✓-blue?style=flat-square&logo=cplusplus)](https://isocpp.org/)
 [![stb_image](https://img.shields.io/badge/stb__image-✓-green?style=flat-square)](https://github.com/nothings/stb)
